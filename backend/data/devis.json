@@ -1,0 +1,158 @@
+[
+  {
+    "id": "DEV-MWMFEPSC",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "cheveux",
+        "gammeName": "Gamme Capillaire & Cheveux",
+        "productId": "shampoing-sans-sulfate",
+        "productName": "Shampoing Doux Sans Sulfate",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-18T17:59:41.580Z",
+    "status": "en_attente"
+  },
+  {
+    "id": "DEV-MWL2KYJC",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "visage",
+        "gammeName": "Gamme Soins du Visage (Skincare)",
+        "productId": "serum-vitamine-c",
+        "productName": "Sérum Éclat Vitamine C 15% & Acide Férulique",
+        "quantite": "50",
+        "notes": ""
+      },
+      {
+        "gammeId": "corps",
+        "gammeName": "Gamme Soins du Corps & Silhouette",
+        "productId": "lait-corporel-hydratant",
+        "productName": "Lait Corporel Hydratant Soyeux",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-17T19:12:51.672Z",
+    "status": "en_attente"
+  },
+  {
+    "id": "DEV-MWL2CJ06",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "corps",
+        "gammeName": "Gamme Soins du Corps & Silhouette",
+        "productId": "lait-corporel-hydratant",
+        "productName": "Lait Corporel Hydratant Soyeux",
+        "quantite": "50",
+        "notes": ""
+      },
+      {
+        "gammeId": "corps",
+        "gammeName": "Gamme Soins du Corps & Silhouette",
+        "productId": "gommage-corps-sucre-cafe",
+        "productName": "Gommage Corps Gourmand au Sel & Café Arabica",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-17T19:06:18.294Z",
+    "status": "en_attente"
+  },
+  {
+    "id": "DEV-MWL28F02",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "corps",
+        "gammeName": "Gamme Soins du Corps & Silhouette",
+        "productId": "lait-corporel-hydratant",
+        "productName": "Lait Corporel Hydratant Soyeux",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-17T19:03:06.482Z",
+    "status": "en_attente"
+  },
+  {
+    "id": "DEV-MWK3JMSW",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "cheveux",
+        "gammeName": "Gamme Capillaire & Cheveux",
+        "productId": "shampoing-sans-sulfate",
+        "productName": "Shampoing Doux Sans Sulfate",
+        "quantite": "100",
+        "notes": ""
+      },
+      {
+        "gammeId": "visage",
+        "gammeName": "Gamme Soins du Visage (Skincare)",
+        "productId": "gel-nettoyant-visage",
+        "productName": "Gel Nettoyant Moussant Purifiant",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-17T02:52:03.248Z",
+    "status": "en_attente"
+  },
+  {
+    "id": "DEV-MWK2D9D7",
+    "client": {
+      "nom": "Non spécifié",
+      "prenom": "",
+      "telephone": "",
+      "email": "",
+      "nomMarque": "Non spécifiée"
+    },
+    "items": [
+      {
+        "gammeId": "homme",
+        "gammeName": "Gamme Soins Homme & Barbe",
+        "productId": "shampoing-barbe-visage",
+        "productName": "Shampoing 2-en-1 Barbe & Visage",
+        "quantite": "50",
+        "notes": ""
+      }
+    ],
+    "createdAt": "2026-11-17T02:19:06.283Z",
+    "status": "en_attente"
+  }
+]
