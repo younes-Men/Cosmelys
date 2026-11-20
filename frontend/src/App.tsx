@@ -6,7 +6,6 @@ import { CataloguePage } from './pages/CataloguePage';
 import { AProposPage } from './pages/AProposPage';
 import { ContactPage } from './pages/ContactPage';
 import { DevisPage } from './pages/DevisPage';
-import { GAMMES_DATA } from './data/catalogData';
 import type { ProductItem } from './data/catalogData';
 
 type TabId = 'catalogue' | 'a-propos' | 'contact' | 'devis';
