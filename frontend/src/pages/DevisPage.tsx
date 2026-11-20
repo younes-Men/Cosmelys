@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '../config/siteConfig';
+import { API_BASE_URL } from '../config/api';
 import { GAMMES_DATA, QUANTITY_TIERS } from '../data/catalogData';
 import type { ProductItem, GammeItem } from '../data/catalogData';
 import {
@@ -8,11 +9,7 @@ import {
   MessageCircle,
   ArrowRight,
   ChevronDown,
-  CheckCircle2,
-  AlertCircle,
-  FileText,
-  PackageCheck,
-  Sparkles
+  AlertCircle
 } from 'lucide-react';
 
 interface DevisItem {
@@ -146,7 +143,7 @@ export const DevisPage: React.FC<DevisPageProps> = ({
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsappNumber}&text=${encodeURIComponent(whatsappText)}`;
 
     // Save to backend (non-blocking)
-    fetch('/api/devis', {
+    fetch(`${API_BASE_URL}/api/devis`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: validItems })

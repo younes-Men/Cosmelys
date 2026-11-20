@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SITE_CONFIG } from '../config/siteConfig';
+import { API_BASE_URL } from '../config/api';
 import {
   MessageCircle,
   Phone,
@@ -7,7 +8,6 @@ import {
   MapPin,
   Clock,
   ArrowRight,
-  CheckCircle2,
   AlertCircle
 } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export const ContactPage: React.FC = () => {
     message: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const subjectOptions = [
@@ -67,7 +67,7 @@ _Envoye via le formulaire de contact cosmelys.com_`;
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsappNumber}&text=${encodeURIComponent(formattedText)}`;
 
     // Background log to backend
-    fetch('/api/contact', {
+    fetch(`${API_BASE_URL}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [gammesDropdownOpen, setGammesDropdownOpen] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -200,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="md:absolute md:left-1/2 md:-translate-x-1/2 flex flex-col items-center justify-center cursor-pointer group text-center z-10"
         >
           <span className="text-xl sm:text-2xl md:text-3xl font-luxury tracking-[0.25em] sm:tracking-[0.3em] text-[#231F20] uppercase group-hover:text-[#B26B59] transition-colors select-none">
-            {SITE_CONFIG.brandName}
+            {SITE_CONFIG.name}
           </span>
           <span className="text-[8px] sm:text-[9px] tracking-[0.3em] sm:tracking-[0.38em] uppercase text-[#968982] font-medium mt-0.5 select-none">
             {SITE_CONFIG.tagline}

@@ -9,10 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
-  Sparkles,
-  Layers,
-  ArrowLeft,
-  CheckCircle2
+  ArrowLeft
 } from 'lucide-react';
 
 interface CataloguePageProps {
@@ -288,7 +285,6 @@ interface GammeHorizontalRowProps {
 
 const GammeHorizontalRow: React.FC<GammeHorizontalRowProps> = ({
   gamme,
-  idx,
   onSelectGamme,
   onDetail,
   onDevis,

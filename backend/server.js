@@ -11,8 +11,28 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: '*', // Permet les requêtes depuis Vercel, localhost, et tout domaine
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
+
+// Root endpoint for status and health check
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    brand: 'Cosmelys',
+    service: 'Laboratoire Cosmétique API',
+    message: 'Backend API is running smoothly on Render!',
+    endpoints: {
+      health: '/api/health',
+      devis: '/api/devis',
+      contact: '/api/contact'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Ensure data folder exists
 const dataDir = path.join(__dirname, 'data');

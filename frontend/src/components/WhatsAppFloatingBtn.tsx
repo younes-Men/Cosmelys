@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SITE_CONFIG } from '../config/siteConfig';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export const WhatsAppFloatingBtn: React.FC = () => {
-  const [showTooltip, setShowTooltip] = useState(true);
 
   const directWhatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
     "Bonjour Cosmelys, je souhaite avoir des informations sur la fabrication de produits cosmétiques pour lancer ma marque."
