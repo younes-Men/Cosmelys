@@ -330,14 +330,6 @@ const GammeHorizontalRow: React.FC<GammeHorizontalRowProps> = ({
       {/* Header de la Gamme */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#F0EAE4] mb-6">
         <div>
-          <div className="flex items-center gap-2.5 mb-2">
-            <span className="text-xs font-luxury font-bold text-[#B26B59] px-2.5 py-0.5 rounded-full bg-[#FAF3F0] border border-[#F0DFD8]">
-              0{idx + 1}
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[#B26B59] font-bold">
-              {gamme.badge}
-            </span>
-          </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-luxury uppercase tracking-[0.06em] text-[#231F20]">
             {gamme.name}
           </h2>

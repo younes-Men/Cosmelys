@@ -46,6 +46,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel fluide nacré soyeux",
         packagingOptions: ["Flacon pompe 250ml", "Flacon pompe 500ml", "Flacon disc-top 300ml"],
         moq: 50,
+        // Flacon shampoing pompe blanc sur fond clair
         image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80"
       },
       {
@@ -60,7 +61,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Crème onctueuse veloutée",
         packagingOptions: ["Flacon pompe 250ml", "Tube souple 200ml", "Flacon pompe 500ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
+        image: "/products/apres-shampoing-demelant.jpg"
       },
       {
         id: "masque-capillaire-reparateur",
@@ -74,7 +75,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Beurre riche et fondant",
         packagingOptions: ["Pot cosmétique luxe 250ml", "Pot 500ml", "Pot 200ml double paroi"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1556228722-d0b71f3b39d8?auto=format&fit=crop&w=600&q=80"
+        image: "/products/masque-capillaire-reparateur.jpg"
       },
       {
         id: "serum-capillaire-anti-frisottis",
@@ -88,7 +89,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Huile sèche soyeuse cristal",
         packagingOptions: ["Flacon pompe verre ambré 50ml", "Flacon verre transparent 100ml", "Flacon pipette luxe"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1608248597359-2c70ba93df03?auto=format&fit=crop&w=600&q=80"
+        image: "/products/serum-capillaire-anti-frisottis.webp"
       },
       {
         id: "traitement-keratine-botox",
@@ -102,7 +103,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Émulsion fluide thermo-active",
         packagingOptions: ["Flacon 500ml salon", "Flacon 1000ml professionnel", "Kit dose 120ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80"
+        image: "/products/traitement-keratine-botox.jpg"
       },
       {
         id: "gel-coiffant-naturel",
@@ -116,6 +117,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel cristal aqueux ou pâte cire mate",
         packagingOptions: ["Pot alu 150ml", "Pot plastique 200ml", "Tube applicateur 150ml"],
         moq: 50,
+        // Pot gel coiffant / cire
         image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
       },
       {
@@ -130,6 +132,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Brume aqueuse vivifiante non collante",
         packagingOptions: ["Flacon spray brumisateur 100ml", "Flacon pipette 50ml", "Flacon applicateur pointe 150ml"],
         moq: 50,
+        // Flacon spray lotion capillaire / brumisateur
         image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
       }
     ]
@@ -155,7 +158,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Sérum fluide aqueux ultra-pénétrant",
         packagingOptions: ["Flacon compte-gouttes verre ambré 30ml", "Flacon pipette dépoli blanc 30ml", "Flacon airless 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+        // Flacon sérum vitamine C orange / ambré pipette
+        image: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "serum-acide-hyaluronique",
@@ -169,7 +173,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel aqueux cristal transparent frais",
         packagingOptions: ["Flacon pipette verre 30ml", "Flacon compte-gouttes 50ml", "Flacon airless 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1608248597359-2c70ba93df03?auto=format&fit=crop&w=600&q=80"
+        image: "/products/serum-acide-hyaluronique.jpg"
       },
       {
         id: "serum-niacinamide-zinc",
@@ -183,7 +187,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Fluide léger à absorption rapide",
         packagingOptions: ["Flacon compte-gouttes 30ml", "Flacon pipette verre opale 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
+        // Sérum fluide léger / flacon cosmétique minimaliste
+        image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "serum-retinol-anti-age",
@@ -197,7 +202,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Émulsion soyeuse nutritive",
         packagingOptions: ["Flacon flacon pompe airless opaque 30ml", "Flacon verre ambré compte-gouttes 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80"
+        // Sérum nuit anti-âge / flacon luxe
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "creme-hydratante-jour-nuit",
@@ -211,7 +217,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Crème fondante onctueuse",
         packagingOptions: ["Pot en verre luxe 50ml", "Flacon pompe airless 50ml", "Pot acrylique haut de gamme"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80"
+        image: "/products/creme-hydratante-jour-nuit.png"
       },
       {
         id: "creme-solaire-spf50",
@@ -225,7 +231,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Fluide ultra-léger toucher sec",
         packagingOptions: ["Flacon shaker 50ml", "Tube avec canule 50ml", "Flacon pompe 50ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+        image: "/products/creme-solaire-spf50.jpg"
       },
       {
         id: "gel-nettoyant-visage",
@@ -239,7 +245,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel moussant frais au rinçage facile",
         packagingOptions: ["Flacon pompe 200ml", "Tube souple 150ml", "Flacon 250ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1556228722-d0b71f3b39d8?auto=format&fit=crop&w=600&q=80"
+        image: "/products/gel-nettoyant-visage.jpg"
       },
       {
         id: "gommage-visage-eclat",
@@ -253,6 +259,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Pâte exfoliante crémeuse gourmande",
         packagingOptions: ["Pot en verre 100ml", "Tube souple 100ml"],
         moq: 50,
+        // Gommage / exfoliant visage texture grains fruits
         image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80"
       }
     ]
@@ -278,7 +285,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Lait fluide velouté fondant",
         packagingOptions: ["Flacon pompe 250ml", "Flacon pompe 400ml", "Flacon aluminium 250ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
+        image: "/products/lait-corporel-hydratant.jpg"
       },
       {
         id: "creme-eclaircissante-zones-sensibles",
@@ -292,7 +299,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Crème fondante soyeuse",
         packagingOptions: ["Tube canule 100ml", "Pot cosmétique 100ml", "Flacon pompe 150ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80"
+        // Tube / pot crème corps unifiante
+        image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "gommage-corps-sucre-cafe",
@@ -306,7 +314,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Pâte exfoliante granuleuse riche en huiles",
         packagingOptions: ["Pot cristal PET 250ml", "Pot aluminium 200ml", "Pot verre 300ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1519735777090-ec97164dc2a0?auto=format&fit=crop&w=600&q=80"
+        image: "/products/gommage-corps-sucre-cafe.png"
       },
       {
         id: "huile-scintillante-pailletee",
@@ -320,7 +328,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Huile sèche fluide scintillante",
         packagingOptions: ["Flacon rectangulaire verre luxe 50ml", "Flacon spray verre 100ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1608248597359-2c70ba93df03?auto=format&fit=crop&w=600&q=80"
+        image: "/products/huile-scintillante-pailletee.jpg"
       },
       {
         id: "gel-douche-parfume",
@@ -334,6 +342,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel onctueux moussant ambré",
         packagingOptions: ["Flacon pompe 300ml", "Flacon disc-top 500ml"],
         moq: 50,
+        // Flacon gel douche / savon liquide douche
         image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80"
       },
       {
@@ -348,7 +357,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Baume fondant poudré ou stick solide",
         packagingOptions: ["Stick roll-on 50ml", "Pot aluminium 50g", "Stick push-up carton biodégradable"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1556228722-d0b71f3b39d8?auto=format&fit=crop&w=600&q=80"
+        // Déodorant naturel stick / roll-on
+        image: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
       }
     ]
   },
@@ -373,7 +383,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Pâte végétale onctueuse ambrée sombre",
         packagingOptions: ["Pot cosmétique 200g", "Pot 500g format spa", "Seau professionnel 1kg"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1512290900672-1f5be50cb89a?auto=format&fit=crop&w=600&q=80"
+        image: "/products/savon-noir-eucalyptus.jpg"
       },
       {
         id: "huile-argan-pure-bio",
@@ -387,7 +397,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Huile dorée soyeuse au parfum subtil de noisette",
         packagingOptions: ["Flacon pipette verre ambré 50ml", "Flacon spray verre 100ml", "Flacon luxe 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1608248597359-2c70ba93df03?auto=format&fit=crop&w=600&q=80"
+        image: "/products/huile-argan-pure-bio.webp"
       },
       {
         id: "huile-figue-barbarie-pure",
@@ -401,7 +411,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Huile fine non grasse à pénétration instantanée",
         packagingOptions: ["Flacon compte-gouttes verre luxe 15ml", "Flacon pipette 30ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+        // Élixir précieux / huile rare flacon luxe compte-gouttes
+        image: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "rhassoul-mineral-atlas",
@@ -415,7 +426,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Poudre micronisée fine ou pâte prête à l'emploi",
         packagingOptions: ["Sachet kraft hermétique 250g", "Pot cosmétique 300g"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80"
+        image: "/products/rhassoul-mineral-atlas.webp"
       },
       {
         id: "eau-de-rose-distillee",
@@ -429,6 +440,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Hydrolat aqueux brumisable pur",
         packagingOptions: ["Flacon spray brume 100ml", "Flacon spray verre 200ml"],
         moq: 50,
+        // Eau de rose / hydrolat flacon spray rose
         image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80"
       }
     ]
@@ -454,7 +466,8 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Huile fine toucher sec",
         packagingOptions: ["Flacon pipette verre noir mat 30ml", "Flacon compte-gouttes 50ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+        // Huile barbe / flacon pipette noir mat grooming
+        image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "shampoing-barbe-visage",
@@ -468,6 +481,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Gel fluide noir purifiant",
         packagingOptions: ["Flacon pompe noir 200ml", "Tube noir mat 150ml"],
         moq: 50,
+        // Homme barbe rasage / produit grooming masculin
         image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=600&q=80"
       },
       {
@@ -482,7 +496,7 @@ export const GAMMES_DATA: GammeItem[] = [
         texture: "Baume émulsion fluide fraîche",
         packagingOptions: ["Flacon pompe airless 100ml", "Flacon verre dépoli 100ml"],
         moq: 50,
-        image: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80"
+        image: "/products/baume-apres-rasage-apaisant.jpg"
       }
     ]
   }
