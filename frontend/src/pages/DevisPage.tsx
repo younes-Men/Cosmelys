@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SITE_CONFIG } from '../config/siteConfig';
-import { API_BASE_URL } from '../config/api';
 import { GAMMES_DATA, QUANTITY_TIERS } from '../data/catalogData';
 import type { ProductItem, GammeItem } from '../data/catalogData';
 import {
@@ -9,7 +8,8 @@ import {
   MessageCircle,
   ArrowRight,
   ChevronDown,
-  AlertCircle
+  AlertCircle,
+  Check
 } from 'lucide-react';
 
 interface DevisItem {
@@ -26,6 +26,134 @@ interface DevisPageProps {
   preSelectedProduct?: ProductItem | null;
   onClearPreselected?: () => void;
 }
+
+interface LuxurySelectOption {
+  value: string;
+  label: string;
+  sublabel?: string;
+}
+
+interface LuxurySelectProps {
+  label: string;
+  stepNumber: string;
+  required?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+  options: LuxurySelectOption[];
+  placeholder: string;
+  disabled?: boolean;
+  disabledPlaceholder?: string;
+}
+
+const LuxurySelect: React.FC<LuxurySelectProps> = ({
+  label,
+  stepNumber,
+  required,
+  value,
+  onChange,
+  options,
+  placeholder,
+  disabled,
+  disabledPlaceholder
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find(o => o.value === value);
+
+  return (
+    <div className="space-y-1.5" ref={containerRef}>
+      <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold">
+        {stepNumber} {label} {required && <span className="text-[#B26B59]">*</span>}
+      </label>
+
+      <div className="relative">
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full text-left px-4 py-3.5 rounded-xl border transition-all duration-200 flex items-center justify-between gap-3 ${
+            disabled
+              ? 'bg-[#F5F2EF]/60 border-[#E5DDD6] text-[#A89E97] cursor-not-allowed opacity-60'
+              : isOpen
+              ? 'bg-white border-[#B26B59] ring-2 ring-[#B26B59]/20 shadow-md'
+              : 'bg-[#FAF7F4] hover:bg-[#F6F1EC] border-[#E0D5CD] text-[#231F20]'
+          }`}
+        >
+          <div className="min-w-0 flex-1">
+            <span className={`block text-xs uppercase tracking-wider font-semibold leading-relaxed ${
+              selectedOption ? 'text-[#231F20]' : 'text-[#8C8078]'
+            }`}>
+              {selectedOption ? selectedOption.label : (disabled ? disabledPlaceholder || placeholder : placeholder)}
+            </span>
+            {selectedOption?.sublabel && (
+              <span className="block text-[11px] text-[#8C8078] mt-0.5 leading-normal">
+                {selectedOption.sublabel}
+              </span>
+            )}
+          </div>
+
+          <ChevronDown
+            className={`w-4 h-4 text-[#8C827A] flex-shrink-0 transition-transform duration-300 ${
+              isOpen ? 'rotate-180 text-[#B26B59]' : ''
+            }`}
+          />
+        </button>
+
+        {isOpen && !disabled && (
+          <div className="absolute top-full left-0 right-0 mt-2 z-40 bg-white border border-[#E5D7CE] rounded-2xl shadow-2xl p-2 space-y-1 max-h-[320px] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-200">
+            {options.map((opt) => {
+              const isSelected = opt.value === value;
+              return (
+                <div
+                  key={opt.value}
+                  onClick={() => {
+                    onChange(opt.value);
+                    setIsOpen(false);
+                  }}
+                  className={`p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between gap-3 ${
+                    isSelected
+                      ? 'bg-[#FAF2EE] text-[#231F20] border border-[#E9D6CC]'
+                      : 'hover:bg-[#FAF7F4] text-[#4F4641]'
+                  }`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-xs uppercase tracking-wider font-semibold leading-relaxed ${
+                      isSelected ? 'text-[#B26B59]' : 'text-[#231F20]'
+                    }`}>
+                      {opt.label}
+                    </p>
+                    {opt.sublabel && (
+                      <p className="text-[11px] text-[#80726A] mt-0.5 leading-normal">
+                        {opt.sublabel}
+                      </p>
+                    )}
+                  </div>
+
+                  {isSelected && (
+                    <div className="w-5 h-5 rounded-full bg-[#B26B59] text-white flex items-center justify-center flex-shrink-0 ml-2">
+                      <Check className="w-3 h-3" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const emptyItem = (): DevisItem => ({
   id: Math.random().toString(36).substr(2, 9),
@@ -60,7 +188,6 @@ export const DevisPage: React.FC<DevisPageProps> = ({
   useEffect(() => {
     if (preSelectedProduct) {
       setItems(prev => {
-        // If already in list, do not duplicate
         if (prev.some(item => item.productId === preSelectedProduct.id)) {
           return prev;
         }
@@ -138,16 +265,8 @@ export const DevisPage: React.FC<DevisPageProps> = ({
 
     setErrorMsg('');
 
-    const validItems = items.filter(item => item.gammeId && item.productId);
     const whatsappText = buildWhatsAppMessage();
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsappNumber}&text=${encodeURIComponent(whatsappText)}`;
-
-    // Save to backend (non-blocking)
-    fetch(`${API_BASE_URL}/api/devis`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: validItems })
-    }).catch(() => {});
 
     // Instantly open WhatsApp directly
     const opened = window.open(whatsappUrl, '_blank');
@@ -156,24 +275,30 @@ export const DevisPage: React.FC<DevisPageProps> = ({
     }
   };
 
+  const gammeOptions: LuxurySelectOption[] = GAMMES_DATA.map(g => ({
+    value: g.id,
+    label: g.name,
+    sublabel: `${g.products.length} références disponibles`
+  }));
+
+  const quantityOptions: LuxurySelectOption[] = QUANTITY_TIERS.map(tier => ({
+    value: tier.value,
+    label: `${tier.value} unités`,
+    sublabel: tier.label.includes('(') ? tier.label.replace(/^.*?\((.*?)\)$/, '$1') : undefined
+  }));
+
   return (
     <div className="min-h-screen bg-[#FAF7F4] text-[#231F20] pb-28">
 
-      {/* Header - Editorial Title */}
+      {/* Header - Cleaned per user request */}
       <section className="pt-8 sm:pt-12 pb-6 px-4 sm:px-6 lg:px-12 border-b border-[#EAE1DA]">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-luxury uppercase tracking-[0.08em] text-[#231F20]">
             Demander Un Devis
           </h1>
           <p className="text-xs uppercase tracking-[0.2em] text-[#918177] mt-3">
-            Composez Votre Gamme Personnalisée · Devis Instantané sur WhatsApp
+            Composez Votre Gamme Personnalisée
           </p>
-
-          <div className="mt-5 flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] sm:text-[11px] uppercase tracking-wider text-[#695D56]">
-            <span>· Réponse sous 24h</span>
-            <span>· Dès 50 unités par référence</span>
-            <span>· Sans engagement</span>
-          </div>
         </div>
       </section>
 
@@ -181,7 +306,7 @@ export const DevisPage: React.FC<DevisPageProps> = ({
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 pt-8 sm:pt-12">
 
         {errorMsg && (
-          <div className="mb-6 p-4 bg-[#FBEBE8] border border-[#F0CEC7] text-[#9E3E2E] text-xs flex items-center gap-2">
+          <div className="mb-6 p-4 bg-[#FBEBE8] border border-[#F0CEC7] text-[#9E3E2E] text-xs flex items-center gap-2 rounded-xl">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -193,13 +318,19 @@ export const DevisPage: React.FC<DevisPageProps> = ({
           {items.map((item, index) => {
             const selectedGamme: GammeItem | undefined = GAMMES_DATA.find(g => g.id === item.gammeId);
 
+            const productOptions: LuxurySelectOption[] = selectedGamme?.products.map(p => ({
+              value: p.id,
+              label: p.name,
+              sublabel: p.shortDesc || undefined
+            })) || [];
+
             return (
               <div
                 key={item.id}
-                className="bg-white border border-[#EAE1DA] p-5 sm:p-8 space-y-5"
+                className="bg-white border border-[#EAE1DA] p-5 sm:p-8 space-y-6 rounded-3xl shadow-xs"
               >
                 {/* Item Header */}
-                <div className="flex items-center justify-between border-b border-[#EAE1DA] pb-3">
+                <div className="flex items-center justify-between border-b border-[#EAE1DA] pb-4">
                   <div className="flex items-center gap-3">
                     <span className="text-xs uppercase tracking-widest text-[#B26B59] font-bold">
                       Produit #{index + 1}
@@ -215,7 +346,7 @@ export const DevisPage: React.FC<DevisPageProps> = ({
                     <button
                       type="button"
                       onClick={() => removeItem(item.id)}
-                      className="text-[10px] uppercase tracking-wider text-[#A4948A] hover:text-[#B26B59] transition-colors flex items-center gap-1"
+                      className="text-[10px] uppercase tracking-wider text-[#A4948A] hover:text-[#B26B59] transition-colors flex items-center gap-1.5 cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       <span>Supprimer</span>
@@ -223,72 +354,47 @@ export const DevisPage: React.FC<DevisPageProps> = ({
                   )}
                 </div>
 
-                {/* Item Fields */}
+                {/* Item Fields with Luxury Custom Selects */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
 
                   {/* Step 1: Gamme */}
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold mb-2">
-                      1. Gamme Cosmétique <span className="text-[#B26B59]">*</span>
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={item.gammeId}
-                        onChange={(e) => updateItem(item.id, 'gammeId', e.target.value)}
-                        className="w-full px-4 py-3 bg-[#FAF7F4] border border-[#E0D5CD] text-xs uppercase tracking-wider text-[#231F20] focus:outline-hidden focus:border-[#B26B59] appearance-none cursor-pointer"
-                      >
-                        <option value="">— Sélectionner une gamme —</option>
-                        {GAMMES_DATA.map(g => (
-                          <option key={g.id} value={g.id}>{g.name}</option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A] pointer-events-none" />
-                    </div>
-                  </div>
+                  <LuxurySelect
+                    stepNumber="1."
+                    label="Gamme Cosmétique"
+                    required
+                    value={item.gammeId}
+                    onChange={(val) => updateItem(item.id, 'gammeId', val)}
+                    options={gammeOptions}
+                    placeholder="— Sélectionner une gamme —"
+                  />
 
                   {/* Step 2: Product */}
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold mb-2">
-                      2. Type de Produit <span className="text-[#B26B59]">*</span>
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={item.productId}
-                        onChange={(e) => updateItem(item.id, 'productId', e.target.value)}
-                        disabled={!item.gammeId}
-                        className="w-full px-4 py-3 bg-[#FAF7F4] border border-[#E0D5CD] text-xs uppercase tracking-wider text-[#231F20] focus:outline-hidden focus:border-[#B26B59] appearance-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                      >
-                        <option value="">— Sélectionner un produit —</option>
-                        {selectedGamme?.products.map(p => (
-                          <option key={p.id} value={p.id}>{p.name}</option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A] pointer-events-none" />
-                    </div>
-                  </div>
+                  <LuxurySelect
+                    stepNumber="2."
+                    label="Type de Produit"
+                    required
+                    value={item.productId}
+                    onChange={(val) => updateItem(item.id, 'productId', val)}
+                    options={productOptions}
+                    placeholder="— Sélectionner un produit —"
+                    disabled={!item.gammeId}
+                    disabledPlaceholder="— Choisissez d'abord une gamme —"
+                  />
 
                   {/* Step 3: Quantity */}
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold mb-2">
-                      3. Quantité Souhaitée <span className="text-[#B26B59]">*</span>
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={item.quantite}
-                        onChange={(e) => updateItem(item.id, 'quantite', e.target.value)}
-                        className="w-full px-4 py-3 bg-[#FAF7F4] border border-[#E0D5CD] text-xs uppercase tracking-wider text-[#231F20] focus:outline-hidden focus:border-[#B26B59] appearance-none cursor-pointer"
-                      >
-                        {QUANTITY_TIERS.map(tier => (
-                          <option key={tier.value} value={tier.value}>{tier.label}</option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C827A] pointer-events-none" />
-                    </div>
-                  </div>
+                  <LuxurySelect
+                    stepNumber="3."
+                    label="Quantité Souhaitée"
+                    required
+                    value={item.quantite}
+                    onChange={(val) => updateItem(item.id, 'quantite', val)}
+                    options={quantityOptions}
+                    placeholder="— Choisir une quantité —"
+                  />
 
                   {/* Step 4: Notes */}
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold mb-2">
+                  <div className="space-y-1.5">
+                    <label className="block text-[10px] uppercase tracking-[0.2em] text-[#695D56] font-bold">
                       4. Notes &amp; Spécifications (Optionnel)
                     </label>
                     <textarea
@@ -296,7 +402,7 @@ export const DevisPage: React.FC<DevisPageProps> = ({
                       placeholder="Parfum, couleur, texture, packaging en verre, sans étiquette..."
                       value={item.notes}
                       onChange={(e) => updateItem(item.id, 'notes', e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#FAF7F4] border border-[#E0D5CD] text-xs text-[#231F20] placeholder-[#A4978F] focus:outline-hidden focus:border-[#B26B59] resize-none"
+                      className="w-full px-4 py-3 bg-[#FAF7F4] hover:bg-[#F6F1EC] focus:bg-white border border-[#E0D5CD] focus:border-[#B26B59] rounded-xl text-xs text-[#231F20] placeholder-[#A4978F] transition-colors focus:outline-hidden focus:ring-2 focus:ring-[#B26B59]/15 resize-none"
                     />
                   </div>
 
@@ -309,19 +415,19 @@ export const DevisPage: React.FC<DevisPageProps> = ({
           <button
             type="button"
             onClick={addItem}
-            className="w-full py-4 border border-dashed border-[#C5B5A8] hover:border-[#231F20] text-[#6B5E55] hover:text-[#231F20] text-xs uppercase tracking-[0.18em] font-medium transition-colors flex items-center justify-center gap-2 bg-white"
+            className="w-full py-4 border border-dashed border-[#C5B5A8] hover:border-[#231F20] text-[#6B5E55] hover:text-[#231F20] text-xs uppercase tracking-[0.18em] font-medium transition-colors flex items-center justify-center gap-2 bg-white rounded-2xl cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Ajouter Une Autre Gamme / Produit</span>
           </button>
 
           {/* Summary & Submit Box */}
-          <div className="p-6 sm:p-8 bg-[#F4ECE7] border border-[#E5D7CE] space-y-5">
+          <div className="p-6 sm:p-8 bg-[#F4ECE7] border border-[#E5D7CE] space-y-5 rounded-3xl">
             <div className="flex items-center justify-between border-b border-[#E5D7CE] pb-3">
               <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#231F20]">
                 Récapitulatif de la Demande
               </span>
-              <span className="text-[11px] uppercase tracking-wider text-[#B26B59]">
+              <span className="text-[11px] uppercase tracking-wider text-[#B26B59] font-semibold">
                 {items.filter(i => i.gammeId && i.productId).length} Sélection(s)
               </span>
             </div>
@@ -338,7 +444,7 @@ export const DevisPage: React.FC<DevisPageProps> = ({
             <button
               type="submit"
               disabled={!isValid}
-              className="w-full py-4 bg-[#B26B59] hover:bg-[#9E5746] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-4.5 bg-[#B26B59] hover:bg-[#9E5746] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-2 cursor-pointer rounded-2xl shadow-md hover:shadow-lg"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Envoyer la Demande sur WhatsApp</span>
@@ -357,4 +463,3 @@ export const DevisPage: React.FC<DevisPageProps> = ({
 };
 
 export default DevisPage;
-

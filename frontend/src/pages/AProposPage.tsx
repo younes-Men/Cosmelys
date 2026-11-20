@@ -223,7 +223,6 @@ export const AProposPage: React.FC<AProposPageProps> = ({
           </div>
 
           {/* Right Column: Logo Image */}
-          {/* Right Column: Logo Image */}
           <div className="lg:col-span-5 flex items-center justify-center py-4">
             <img
               src="/logo.png.png"
