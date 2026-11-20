@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
   ArrowRight,
@@ -13,6 +13,79 @@ interface AProposPageProps {
   onGoToDevis: () => void;
   onGoToCatalogue: () => void;
 }
+
+const AnimatedStatCounter: React.FC<{
+  target: number;
+  target2?: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}> = ({ target, target2, prefix = '', suffix = '', duration = 1800 }) => {
+  const [val1, setVal1] = useState(0);
+  const [val2, setVal2] = useState(0);
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            setHasStarted(true);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(el);
+      return () => observer.disconnect();
+    } else {
+      setHasStarted(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTimestamp: number | null = null;
+    let animId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // easeOutCubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      setVal1(Math.round(ease * target));
+      if (target2 !== undefined) {
+        setVal2(Math.round(ease * target2));
+      }
+
+      if (progress < 1) {
+        animId = requestAnimationFrame(step);
+      } else {
+        setVal1(target);
+        if (target2 !== undefined) setVal2(target2);
+      }
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, [hasStarted, target, target2, duration]);
+
+  return (
+    <span ref={containerRef} className="tabular-nums">
+      {target2 !== undefined
+        ? `${prefix}${val1}-${val2}${suffix}`
+        : `${prefix}${val1}${suffix}`}
+    </span>
+  );
+};
 
 export const AProposPage: React.FC<AProposPageProps> = ({
   onGoToDevis,
@@ -34,10 +107,10 @@ export const AProposPage: React.FC<AProposPageProps> = ({
   };
 
   const stats = [
-    { value: "50 pcs", label: "Minimum de Commande", desc: "Idéal pour tester votre marché sans risque financier" },
-    { value: "ISO 22716", label: "Norme Internationale BPF", desc: "Production en salle blanche certifiée & traçabilité stricte" },
-    { value: "100%", label: "Actifs Botaniques Purs", desc: "Argan Bio, Figue de Barbarie, Rose & Rhassoul de l'Atlas" },
-    { value: "7-14j", label: "Délai de Façonnage", desc: "Production rapide et expédition partout au Maroc & Export" }
+    { target: 50, suffix: " pcs", label: "Minimum de Commande", desc: "Idéal pour tester votre marché sans risque financier" },
+    { prefix: "ISO ", target: 22716, label: "Norme Internationale BPF", desc: "Production en salle blanche certifiée & traçabilité stricte" },
+    { target: 100, suffix: "%", label: "Actifs Botaniques Purs", desc: "Argan Bio, Figue de Barbarie, Rose & Rhassoul de l'Atlas" },
+    { target: 7, target2: 14, suffix: "j", label: "Délai de Façonnage", desc: "Production rapide et expédition partout au Maroc & Export" }
   ];
 
   const steps = [
@@ -169,11 +242,16 @@ export const AProposPage: React.FC<AProposPageProps> = ({
           {stats.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white/90 backdrop-blur-xs p-5 sm:p-6 rounded-2xl border border-[#E0D0C6] shadow-xs flex flex-col justify-between"
+              className="bg-white/90 backdrop-blur-xs p-5 sm:p-6 rounded-2xl border border-[#E0D0C6] shadow-xs flex flex-col justify-between hover:border-[#B26B59]/60 hover:shadow-md transition-all duration-300"
             >
               <div>
                 <span className="text-3xl sm:text-4xl font-luxury text-[#B26B59] block mb-1">
-                  {s.value}
+                  <AnimatedStatCounter
+                    target={s.target}
+                    target2={s.target2}
+                    prefix={s.prefix}
+                    suffix={s.suffix}
+                  />
                 </span>
                 <span className="text-xs uppercase tracking-[0.15em] font-bold text-[#231F20] block mb-2">
                   {s.label}
